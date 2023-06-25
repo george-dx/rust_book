@@ -15,6 +15,16 @@ struct Rectangle {
     height: u32,
 }
 
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    fn width(&self) -> bool {
+        self.width > 0
+    }
+}
+
 // We want each instance of this struct to own all of its data
 // and for that data to be valid for as long as the entire struct
 // is valid
@@ -25,10 +35,6 @@ fn build_user(email: String, username: String) -> User {
         email,
         sign_in_count: 1,
     }
-}
-
-fn area(rectangle: &Rectangle) -> u32 {
-    rectangle.width * rectangle.height
 }
 
 fn main() {
@@ -63,10 +69,11 @@ fn main() {
         height: 50,
     };
 
-    println!(
-        "The area of rectangle is {} square pixels.",
-        area(&rect1)
-    );
-    
+    if rect1.width() {
+        println!("The area of rectangle is {} square pixels.", rect1.area());
+    }
+
     println!("rect1 is {:#?}", rect1);
+
+    
 }
