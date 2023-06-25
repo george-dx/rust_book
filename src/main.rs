@@ -23,6 +23,17 @@ impl Rectangle {
     fn width(&self) -> bool {
         self.width > 0
     }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size,
+        }
+    }
 }
 
 // We want each instance of this struct to own all of its data
@@ -75,5 +86,17 @@ fn main() {
 
     println!("rect1 is {:#?}", rect1);
 
-    
+    let rect2 = Rectangle {
+        width: 10,
+        height: 40,
+    };
+    let rect3 = Rectangle {
+        width: 60,
+        height: 45,
+    };
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+
+    let sq = Rectangle::square(3);
+    println!("Area of sq is {}", sq.area());
 }
