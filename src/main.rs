@@ -7,6 +7,13 @@ struct User {
 
 struct Color(i32, i32, i32);
 struct Point(i32, i32, i32);
+struct AlwaysEqual;
+
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
 
 // We want each instance of this struct to own all of its data
 // and for that data to be valid for as long as the entire struct
@@ -20,7 +27,9 @@ fn build_user(email: String, username: String) -> User {
     }
 }
 
-struct AlwaysEqual;
+fn area(rectangle: &Rectangle) -> u32 {
+    rectangle.width * rectangle.height
+}
 
 fn main() {
     let mut user1 = build_user(
@@ -41,4 +50,23 @@ fn main() {
     let _origin = Point(0, 0, 0);
 
     let _subject = AlwaysEqual;
+
+    // let width1 = 30;
+    // let height1 = 50;
+
+    // Refactoring using tuples
+    // let rect1 = (30, 50);
+
+    // Refactoring using structs
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+
+    println!(
+        "The area of rectangle is {} square pixels.",
+        area(&rect1)
+    );
+    
+    println!("rect1 is {:#?}", rect1);
 }
