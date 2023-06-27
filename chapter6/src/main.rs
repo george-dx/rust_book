@@ -57,4 +57,13 @@ fn main() {
 
     let m = Message::Write(String::from("hello"));
     m.call();
+
+    // The Option enum
+
+    // The type of some_number is Option<i32>
+    let _some_number = Some(5);
+    // The type of some_char is Option<char>
+    let _some_char = Some('e');
+
+    let _absent_number: Option<i32> = None;
 }
