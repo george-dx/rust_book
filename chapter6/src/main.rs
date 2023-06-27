@@ -33,6 +33,46 @@ impl Message {
 
 // fn route(ip_kind: IpAddrKind) {}
 
+#[derive(Debug)] // so we can inspect the state
+enum UsState {
+    Alabama,
+    Alaska,
+    // --snip--
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => {
+            println!("Luccky penny!");
+            1
+        }
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("State quarter from {:?}!", state);
+            25
+        }
+    }
+}
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
+}
+
+fn add_fancy_hat() {}
+fn remove_fancy_hat() {}
+fn move_player(num_spaces: u8) {}
+
 fn main() {
     // The following example will work with the
     // original non-refactored code
@@ -66,4 +106,23 @@ fn main() {
     let _some_char = Some('e');
 
     let _absent_number: Option<i32> = None;
+
+    value_in_cents(Coin::Quarter(UsState::Alaska));
+
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+
+    println!("five: {:?}, six: {:?}, none: {:?}", five, six, none);
+
+    let dice_roll = 9;
+    match dice_roll {
+        3 => add_fancy_hat(),
+        7 => remove_fancy_hat(),
+        other => move_player(other),
+        // _ => reroll(), // catch all mechanism
+        // when we don't want to use the value
+        // _ => (), // unit value - empty tuple so that nothing
+        // happens
+    }
 }
