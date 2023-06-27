@@ -125,4 +125,24 @@ fn main() {
         // _ => (), // unit value - empty tuple so that nothing
         // happens
     }
+
+    // Concise control flow with if let for when the match
+    // expression is a bit wordy - it lets you combine if and
+    // let in an expression that match one pattern while
+    // ignoring the rest
+
+    let config_max = Some(3u8);
+
+    // match config_max {
+    //     Some(max) => println!("The maximum is configured to be {max}"),
+    //     _ => (),
+    // }
+
+    // Shorter way using if let
+    if let Some(max) = config_max {
+        println!("The maximum is configured to be {max}");
+    } else {
+        // same as the block of code that would go with the _ case
+        println!("The maximum is not configured");
+    }
 }
