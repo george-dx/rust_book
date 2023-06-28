@@ -14,6 +14,17 @@ mod front_of_house {
     }
 }
 
+// Adding this line in scope is similar to creating a
+// symbolic link in the filesystem. Addic this in the
+// crate root, hosting is now a valid name in that scope
+// just as though the hosting module had been defined
+// in the crate root. It applies in the scope it's in
+
+// after the second change, external code can use the
+// path restaurant::hosting::add_to_waitlist() instead
+// of restaurant::front_of_house::hosting::add_to_waitlist()
+pub use crate::front_of_house::hosting;
+
 pub fn eat_at_restaurant() {
     // Absolute path
     crate::front_of_house::hosting::add_to_waitlist();
@@ -34,6 +45,8 @@ pub fn eat_at_restaurant() {
 
     let order1 = back_of_house::Appetizer::Soup;
     let order2 = back_of_house::Appetizer::Salad;
+
+    hosting::add_to_waitlist();
 }
 
 fn deliver_order() {}
@@ -63,5 +76,11 @@ mod back_of_house {
     pub enum Appetizer {
         Soup,
         Salad,
+    }
+}
+
+mod customer {
+    pub fn eat_at_restaurant() {
+        super::hosting::add_to_waitlist();
     }
 }
