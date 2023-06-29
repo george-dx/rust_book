@@ -1,3 +1,9 @@
+enum SpreadshetCell {
+    Int(i32),
+    Float(f64),
+    Text(String),
+}
+
 fn main() {
     let _v1: Vec<i32> = Vec::new();
     let _v2 = vec![1, 2, 3];
@@ -37,4 +43,11 @@ fn main() {
         *i += 50;
     }
     println!("Vector v is {:?}", v);
+
+    let row = vec![
+        SpreadshetCell::Int(3),
+        SpreadshetCell::Text(String::from("blue")),
+        SpreadshetCell::Float(10.12),
+    ]
+
 }
