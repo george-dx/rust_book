@@ -34,6 +34,18 @@ fn largest<T: std::cmp::PartialOrd>(list: &[T]) -> &T {
     largest
 }
 
+// Only works with the same type for x and y
+struct Point<T> {
+    x: T,
+    y: T,
+}
+
+struct ComplexPoint<T, U> {
+    x: T,
+    y: U,
+}
+
+
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
 
@@ -44,4 +56,10 @@ fn main() {
 
     let result = largest(&char_list);
     println!("The largest char is {result}");
+
+    let integer_point = Point {x: 5, y: 10};
+    let float_point = Point {x: 1.0, y: 4.0};
+    // let wont_work = Point {x: 5, y: 4.0};
+
+    let integer_float_point = ComplexPoint {x: 5, y:4.0 };
 }
