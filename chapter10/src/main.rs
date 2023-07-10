@@ -1,4 +1,4 @@
-use chapter10::{Summary, Tweet};
+use chapter10::{Summary, Tweet, NewsArticle};
 
 fn largest_i32(list: &[i32]) -> &i32 {
     let mut largest = &list[0];
@@ -109,4 +109,16 @@ fn main() {
         retweet: false,
     };
     println!("1 new tweet: {}", tweet.summarize());
+
+    let article = NewsArticle {
+        headline: String::from(
+            "Penguins win the Stanley Cup Championship!"
+        ),
+        location: String::from("Pittsburgh, PA, USA"),
+        author: String::from("Iceburgh"),
+        content: String::from("The Pittsburgh Penguins once again are the best \
+        hockey team in the NHL."),
+    };
+
+    println!("New article available! {}", article.summarize());
 }
