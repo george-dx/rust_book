@@ -1,3 +1,24 @@
+struct Pair<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self { x, y }
+    }
+}
+
+impl<T: std::fmt::Display + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x)
+        } else {
+            println!("The largest member is y = {}", self.y)
+        }
+    }
+}
+
 pub trait Summary {
     fn summarize_author(&self) -> String;
 
@@ -50,4 +71,16 @@ impl Display for NewsArticle {
 
 pub fn notify(item: &(impl Summary + Display)) {
     println!("Breaking news! {}", item.summarize());
+}
+
+fn returns_summarizable() -> impl Summary {
+    Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from(
+            "of cours, as you probably
+        already know, people",
+        ),
+        reply: false,
+        retweet: false,
+    }
 }
