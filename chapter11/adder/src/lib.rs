@@ -48,7 +48,12 @@ mod tests {
             height: 1,
         };
 
-        assert!(larger.can_hold(&smaller));
+        assert!(
+            larger.can_hold(&smaller),
+            "{:?} should be able to hold {:?}",
+            larger,
+            smaller
+        );
     }
 
     #[test]
@@ -62,24 +67,36 @@ mod tests {
             height: 1,
         };
 
-        assert!(!smaller.can_hold(&larger));
+        assert!(
+            !smaller.can_hold(&larger),
+            "{:?} shouldn't hold {:?}",
+            smaller,
+            larger
+        );
     }
 
     #[test]
     fn it_adds_two() {
-        assert_eq!(4, add_two(2));
+        let four = 4;
+        assert_eq!(four, add_two(2), "Add two returned other value than {four}");
     }
 
     #[test]
     fn it_adds_two_negative_test() {
-        assert_ne!(5, add_two(2));
+        let five = 5;
+        assert_ne!(
+            five,
+            add_two(2),
+            "{five} and returned value should be different"
+        );
     }
 
     #[test]
     fn greeting_contains_name() {
         let result = greeting("Carol");
-        assert!(result.contains("Carol"),
-                "Greeting did not contain name, value was `{result}`"
+        assert!(
+            result.contains("Carol"),
+            "Greeting did not contain name, value was `{result}`"
         );
     }
 }
