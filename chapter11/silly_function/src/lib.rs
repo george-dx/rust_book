@@ -7,6 +7,10 @@ pub fn add_two(a: i32) -> i32 {
     a + 2
 }
 
+fn internal_adder(a: i32, b: i32) -> i32 {
+    a + b
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -42,5 +46,10 @@ mod tests {
     #[ignore]
     fn expensive_test() {
         // code that takes an hour to run
+    }
+
+    #[test]
+    fn internal_testing() {
+        assert_eq!(4, internal_adder(2, 2));
     }
 }
