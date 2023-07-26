@@ -37,4 +37,10 @@ mod tests {
     fn one_hundred() {
         assert_eq!(102, add_two(100));
     }
+
+    #[test]
+    #[ignore]
+    fn expensive_test() {
+        // code that takes an hour to run
+    }
 }
