@@ -16,7 +16,7 @@ impl Config {
         // The program's name takes up the first value in the vector at args[0], so we're starting arguments at index 1
         let query: String = args[1].clone();
         let file_path: String = args[2].clone();
-        let ignore_case = env::var("IGNORE_CASE").is_ok();
+        let ignore_case: bool = env::var("IGNORE_CASE").is_ok();
 
         Ok(Config {
             query,
