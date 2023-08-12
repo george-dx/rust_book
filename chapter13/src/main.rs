@@ -54,7 +54,18 @@ fn main() {
 
     let expensive_closure = |num: u32| -> u32 {
         println!("Calculating slowly...");
-        thread::sleep(time::Duration::from_secs(2));
+        thread::sleep(time::Duration::from_secs(1));
         num
     };
+
+    println!("{}", expensive_closure(32));
+
+    let list = vec![1, 2, 3];
+    println!("Before defining closure: {:?}", list);
+
+    let only_borrows = || println!("From closure: {:?}", list);
+
+    println!("Before calling closure: {:?}", list);
+    only_borrows();
+    println!("After calling closure: {:?}", list);
 }
