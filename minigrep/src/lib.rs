@@ -9,13 +9,18 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("Not enough arguments");
-        }
-        // The program's name takes up the first value in the vector at args[0], so we're starting arguments at index 1
-        let query: String = args[1].clone();
-        let file_path: String = args[2].clone();
+    pub fn build(mut args: impl Iterator<Item = String>,) -> Result<Config, &'static str> {
+        // The name of the program - we ignore it
+        args.next();
+
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
+        };
+        let file_path = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a file path"),
+        };
         let ignore_case: bool = env::var("IGNORE_CASE").is_ok();
 
         Ok(Config {
