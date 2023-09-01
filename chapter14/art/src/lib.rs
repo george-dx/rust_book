@@ -25,5 +25,6 @@ pub mod utils {
     /// a secondary color
     pub fn mix(c1: PrimaryColor, c2: PrimaryColor) -> SecondaryColor {
         println!("Mix it.");
+        return SecondaryColor::Orange;
     }
 }
