@@ -4,6 +4,7 @@
 
 pub use self::kinds::PrimaryColor;
 pub use self::kinds::SecondaryColor;
+pub use self::kinds::SpecialColor;
 pub use self::utils::mix;
 
 pub mod kinds {
@@ -19,6 +20,12 @@ pub mod kinds {
         Orange,
         Green,
         Purple,
+    }
+
+    #[derive(Debug)]
+    pub enum SpecialColor {
+        Black,
+        White,
     }
 }
 

@@ -1,6 +1,6 @@
 [package]
 name = "art_dx"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Just an example crate you have to write from The Rust Programming Language Book"
 license = "MIT OR Apache-2.0"
