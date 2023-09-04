@@ -1,5 +1,5 @@
-use art::mix;
-use art::PrimaryColor;
+use art_dx::mix;
+use art_dx::PrimaryColor;
 
 fn main() {
     let red = PrimaryColor::Red;
