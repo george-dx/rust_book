@@ -1,3 +1,4 @@
+// use rand; // -> no external crate `rand`
 use add_one;
 
 fn main() {
