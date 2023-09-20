@@ -1,3 +1,11 @@
+struct MyBox<T>(T);
+
+impl<T> MyBox<T> {
+    fn new(x: T) -> MyBox<T> {
+        MyBox(x)
+    }
+}
+
 enum List {
     Cons(i32, Box<List>),
     Nil,
@@ -18,4 +26,7 @@ fn main() {
 
     assert_eq!(5, x);
     assert_eq!(5, *y);
+
+    let w = MyBox::new(x);
+    assert_eq!(5, *w);
 }
