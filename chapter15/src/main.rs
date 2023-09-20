@@ -1,3 +1,4 @@
+use crate::List::{Cons, Nil};
 use std::ops::Deref;
 
 struct MyBox<T>(T);
@@ -21,7 +22,9 @@ enum List {
     Nil,
 }
 
-use crate::List::{Cons, Nil};
+fn hello(name: &str) {
+    println!("Hello, {name}!");
+}
 
 fn main() {
     // store an i32 value on the heap
@@ -39,4 +42,7 @@ fn main() {
 
     let w = MyBox::new(x);
     assert_eq!(5, *w);
+
+    let m = MyBox::new(String::from("Rust"));
+    hello(&m);
 }
