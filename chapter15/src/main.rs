@@ -68,6 +68,15 @@ fn main() {
     println!("CustomSmartPointer dropped before the end of main.");
 
     let list1 = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    println!("Count after creating list1 = {}", Rc::strong_count(&list1));
     let list2 = Cons(3, Rc::clone(&list1));
-    let list3 = Cons(4, Rc::clone(&list1));
+    println!("Count after creating list2 = {}", Rc::strong_count(&list1));
+    {
+        let list3 = Cons(4, Rc::clone(&list1));
+        println!("Count after creating list3 = {}", Rc::strong_count(&list1));
+    }
+    println!(
+        "Count after list3 goes out of scope = {}",
+        Rc::strong_count(&list1)
+    );
 }
