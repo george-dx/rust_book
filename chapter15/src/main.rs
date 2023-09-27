@@ -1,5 +1,6 @@
 use crate::List::{Cons, Nil};
 use std::ops::Deref;
+use std::rc::Rc;
 
 struct MyBox<T>(T);
 
@@ -28,7 +29,7 @@ impl<T> Deref for MyBox<T> {
 }
 
 enum List {
-    Cons(i32, Box<List>),
+    Cons(i32, Rc<List>),
     Nil,
 }
 
@@ -41,7 +42,7 @@ fn main() {
     let b = Box::new(5);
     println!("b = {b}");
 
-    let _list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+    // let _list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
 
     let x = 5;
     // let y = &x;
@@ -65,4 +66,8 @@ fn main() {
     println!("CustomSmartPointers created.");
     drop(c);
     println!("CustomSmartPointer dropped before the end of main.");
+
+    let list1 = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    let list2 = Cons(3, Rc::clone(&list1));
+    let list3 = Cons(4, Rc::clone(&list1));
 }
