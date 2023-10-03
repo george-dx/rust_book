@@ -29,10 +29,25 @@ impl<T> Deref for MyBox<T> {
     }
 }
 
+// #[derive(Debug)]
+// enum List {
+//     Cons(Rc<RefCell<i32>>, Rc<List>),
+//     Nil,
+// }
+
 #[derive(Debug)]
 enum List {
-    Cons(Rc<RefCell<i32>>, Rc<List>),
+    Cons(i32, RefCell<Rc<List>>),
     Nil,
+}
+
+impl List {
+    fn tail(&self) -> Option<&RefCell<Rc<List>>> {
+        match self {
+            Cons(_, item) => Some(item),
+            Nil => None,
+        }
+    }
 }
 
 fn hello(name: &str) {
@@ -82,15 +97,34 @@ fn main() {
     //     Rc::strong_count(&list1)
     // );
 
-    let value = Rc::new(RefCell::new(5));
+    // let value = Rc::new(RefCell::new(5));
 
-    let aa = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));
-    let bb = Cons(Rc::new(RefCell::new(3)), Rc::clone(&aa));
-    let cc = Cons(Rc::new(RefCell::new(4)), Rc::clone(&aa));
+    // let aa = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));
+    // let bb = Cons(Rc::new(RefCell::new(3)), Rc::clone(&aa));
+    // let cc = Cons(Rc::new(RefCell::new(4)), Rc::clone(&aa));
 
-    *value.borrow_mut() += 10;
+    // *value.borrow_mut() += 10;
 
-    println!("aa after = {:?}", aa);
-    println!("bb after = {:?}", bb);
-    println!("cc after = {:?}", cc);
+    // println!("aa after = {:?}", aa);
+    // println!("bb after = {:?}", bb);
+    // println!("cc after = {:?}", cc);
+
+    let original_list = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
+    println!("original_list initial rc count = {}", Rc::strong_count(&original_list));
+    println!("original_list next item = {:?}", original_list.tail());
+
+    let copy_list = Rc::new(Cons(10, RefCell::new(Rc::clone(&original_list))));
+    println!("original_list rc count after copy_list creation = {}", Rc::strong_count(&original_list));
+    println!("copy_list initial rc count = {}", Rc::strong_count(&copy_list));
+    println!("copy_list next item = {:?}", copy_list.tail());
+
+    if let Some(link) = original_list.tail() {
+        *link.borrow_mut() = Rc::clone(&copy_list);
+    }
+    println!("copy_list rc count after changing original_list = {}", Rc::strong_count(&copy_list));
+    println!("original_list rc count after changing original_list = {}", Rc::strong_count(&original_list));
+
+    // Uncomment the next line to see that we have a cycle;
+    // it will overflow the stack.
+    println!("original_list next item = {:?}", original_list.tail());
 }
