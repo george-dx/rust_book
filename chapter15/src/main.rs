@@ -50,6 +50,12 @@ impl List {
     }
 }
 
+#[derive(Debug)]
+struct Node {
+    value: i32,
+    children: RefCell<Vec<Rc<Node>>>,
+}
+
 fn hello(name: &str) {
     println!("Hello, {name}!");
 }
@@ -110,21 +116,46 @@ fn main() {
     // println!("cc after = {:?}", cc);
 
     let original_list = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
-    println!("original_list initial rc count = {}", Rc::strong_count(&original_list));
+    println!(
+        "original_list initial rc count = {}",
+        Rc::strong_count(&original_list)
+    );
     println!("original_list next item = {:?}", original_list.tail());
 
     let copy_list = Rc::new(Cons(10, RefCell::new(Rc::clone(&original_list))));
-    println!("original_list rc count after copy_list creation = {}", Rc::strong_count(&original_list));
-    println!("copy_list initial rc count = {}", Rc::strong_count(&copy_list));
+    println!(
+        "original_list rc count after copy_list creation = {}",
+        Rc::strong_count(&original_list)
+    );
+    println!(
+        "copy_list initial rc count = {}",
+        Rc::strong_count(&copy_list)
+    );
     println!("copy_list next item = {:?}", copy_list.tail());
 
     if let Some(link) = original_list.tail() {
         *link.borrow_mut() = Rc::clone(&copy_list);
     }
-    println!("copy_list rc count after changing original_list = {}", Rc::strong_count(&copy_list));
-    println!("original_list rc count after changing original_list = {}", Rc::strong_count(&original_list));
+    println!(
+        "copy_list rc count after changing original_list = {}",
+        Rc::strong_count(&copy_list)
+    );
+    println!(
+        "original_list rc count after changing original_list = {}",
+        Rc::strong_count(&original_list)
+    );
 
     // Uncomment the next line to see that we have a cycle;
     // it will overflow the stack.
-    println!("original_list next item = {:?}", original_list.tail());
+    // println!("original_list next item = {:?}", original_list.tail());
+
+    let leaf = Rc::new(Node {
+        value: 3,
+        children: RefCell::new(vec![]),
+    });
+
+    let branch = Rc::new(Node {
+        value: 5,
+        children: RefCell::new(vec![Rc::clone(&leaf)]),
+    });
 }
