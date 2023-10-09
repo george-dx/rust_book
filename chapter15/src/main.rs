@@ -1,5 +1,6 @@
 use crate::List::{Cons, Nil};
-use std::cell::RefCell;
+use std::borrow::Borrow;
+use std::cell::{Ref, RefCell};
 use std::ops::Deref;
 use std::rc::{Rc, Weak};
 
@@ -152,14 +153,20 @@ fn main() {
 
     let leaf = Rc::new(Node {
         value: 3,
+        parent: RefCell::new(Weak::new()),
         children: RefCell::new(vec![]),
     });
 
-    let _branch = Rc::new(Node {
+    println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+
+    let branch = Rc::new(Node {
         value: 5,
+        parent: RefCell::new(Weak::new()),
         children: RefCell::new(vec![Rc::clone(&leaf)]),
     });
 
+    *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
 
+    println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
 }
 // 18793
