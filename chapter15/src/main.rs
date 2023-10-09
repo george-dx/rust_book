@@ -1,7 +1,7 @@
 use crate::List::{Cons, Nil};
 use std::cell::RefCell;
 use std::ops::Deref;
-use std::rc::Rc;
+use std::rc::{Rc, Weak};
 
 struct MyBox<T>(T);
 
@@ -53,6 +53,7 @@ impl List {
 #[derive(Debug)]
 struct Node {
     value: i32,
+    parent: RefCell<Weak<Node>>,
     children: RefCell<Vec<Rc<Node>>>,
 }
 
@@ -83,7 +84,7 @@ fn main() {
     let c = CustomSmartPointer {
         data: String::from("my stuff"),
     };
-    let d = CustomSmartPointer {
+    let _d = CustomSmartPointer {
         data: String::from("other stuff"),
     };
     println!("CustomSmartPointers created.");
@@ -154,8 +155,11 @@ fn main() {
         children: RefCell::new(vec![]),
     });
 
-    let branch = Rc::new(Node {
+    let _branch = Rc::new(Node {
         value: 5,
         children: RefCell::new(vec![Rc::clone(&leaf)]),
     });
+
+
 }
+// 18793
