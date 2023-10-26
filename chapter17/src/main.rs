@@ -1,3 +1,5 @@
+use chapter17::{Draw};
+
 pub struct AveragedCollection {
     list: Vec<i32>,
     average: f64,
@@ -27,6 +29,18 @@ impl AveragedCollection {
     fn update_average(&mut self) {
         let total: i32 = self.list.iter().sum();
         self.average = total as f64 / self.list.len() as f64;
+    }
+}
+
+struct SelectBox {
+    width: u32,
+    height: u32,
+    options: Vec<String>,
+}
+
+impl Draw for SelectBox {
+    fn draw(&self) {
+        println!("Select box drawn")
     }
 }
 
