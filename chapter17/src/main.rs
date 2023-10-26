@@ -1,4 +1,4 @@
-use chapter17::{Draw};
+use chapter17::{Button, Draw, Screen};
 
 pub struct AveragedCollection {
     list: Vec<i32>,
@@ -45,5 +45,24 @@ impl Draw for SelectBox {
 }
 
 fn main() {
-    println!("Hello, world!");
+    let screen = Screen {
+        components: vec![
+            Box::new(SelectBox {
+                width: 75,
+                height: 10,
+                options: vec![
+                    String::from("Yes"),
+                    String::from("No"),
+                    String::from("Maybe"),
+                ],
+            }),
+            Box::new(Button {
+                width: 50,
+                height: 10,
+                label: String::from("OK"),
+            }),
+        ],
+    };
+
+    screen.run();
 }
