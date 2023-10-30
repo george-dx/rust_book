@@ -1,5 +1,5 @@
 use chapter17::{Button, Draw, Screen};
-
+use blog::Post;
 pub struct AveragedCollection {
     list: Vec<i32>,
     average: f64,
@@ -45,24 +45,38 @@ impl Draw for SelectBox {
 }
 
 fn main() {
-    let screen = Screen {
-        components: vec![
-            Box::new(SelectBox {
-                width: 75,
-                height: 10,
-                options: vec![
-                    String::from("Yes"),
-                    String::from("No"),
-                    String::from("Maybe"),
-                ],
-            }),
-            Box::new(Button {
-                width: 50,
-                height: 10,
-                label: String::from("OK"),
-            }),
-        ],
-    };
+    let screen_example = false;
+    if screen_example {
+        let screen = Screen {
+            components: vec![
+                Box::new(SelectBox {
+                    width: 75,
+                    height: 10,
+                    options: vec![
+                        String::from("Yes"),
+                        String::from("No"),
+                        String::from("Maybe"),
+                    ],
+                }),
+                Box::new(Button {
+                    width: 50,
+                    height: 10,
+                    label: String::from("OK"),
+                }),
+            ],
+        };
 
-    screen.run();
+        screen.run();
+    }
+
+    let mut post = Post::new();
+
+    post.add_text("I ate a salad for lunch today");
+    assert_eq!("", post.content());
+
+    post.request_review();
+    assert_eq!("", post.content());
+
+    post.approve();
+    assert_eq!("I ate a salad for lunch today", post.content());
 }
