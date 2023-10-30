@@ -1,5 +1,7 @@
-use chapter17::{Button, Draw, Screen};
+mod blog;
+
 use blog::Post;
+use chapter17::{Button, Draw, Screen};
 pub struct AveragedCollection {
     list: Vec<i32>,
     average: f64,
