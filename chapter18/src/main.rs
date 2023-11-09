@@ -10,6 +10,18 @@ enum Message {
     ChangeColor(i32, i32, i32),
 }
 
+enum Color {
+    Rgb(i32, i32, i32),
+    Hsv(i32, i32, i32),
+}
+
+enum Message2 {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(Color),
+}
+
 fn main() {
     let first_part = false;
     if first_part {
@@ -125,4 +137,17 @@ fn main() {
             println!("Change color to red {r}, green {g}, and blue {b}")
         }
     }
+
+    let msg = Message2::ChangeColor(Color::Hsv(0, 160, 255));
+    match msg {
+        Message2::ChangeColor(Color::Rgb(r, g, b)) => {
+            println!("Change color to red {r}, green {g}, and blue {b}")
+        }
+        Message2::ChangeColor(Color::Hsv(h, s, v)) => {
+            println!("Change color to hue {h}, saturation {s}, value {v}")
+        }
+        _ => (),
+    }
+
+    let ((feet, inches), Point { x, y }) = ((3, 10), Point { x: 3, y: -10 });
 }
