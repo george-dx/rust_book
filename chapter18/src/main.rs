@@ -1,3 +1,8 @@
+struct Point {
+    x: i32,
+    y: i32,
+}
+
 fn main() {
     let first_part = false;
     if first_part {
@@ -37,7 +42,7 @@ fn main() {
     }
 
     let x = 1;
-    
+
     match x {
         1 => println!("one"),
         2 => println!("two"),
@@ -81,5 +86,19 @@ fn main() {
         'a'..='j' => println!("early ASCII letter"),
         'k'..='z' => println!("late ASCII letter"),
         _ => println!("something else"),
+    }
+
+    let p = Point { x: 0, y: 7 };
+
+    let Point { x, y } = p;
+    assert_eq!(0, x);
+    assert_eq!(7, y);
+
+    match p {
+        Point { x, y: 0 } => println!("On the x axis at {x}"),
+        Point { x: 0, y } => println!("On the y axis at {y}"),
+        Point { x, y } => {
+            println!("On neither axis: ({x}, {y})");
+        }
     }
 }
