@@ -2,6 +2,10 @@ use std::slice;
 
 unsafe fn dangerous() {}
 
+extern "C" {
+    fn abs(input: i32) -> i32;
+}
+
 fn split_at_mut(values: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
     let len = values.len();
     let ptr = values.as_mut_ptr();
@@ -36,5 +40,6 @@ fn main() {
         println!("r1 is: {}", *r1);
         println!("r2 is: {}", *r2);
         dangerous();
+        println!("Absolute value of -3 according to C: {}", abs(-3));
     }
 }
