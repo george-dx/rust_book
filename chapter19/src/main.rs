@@ -20,6 +20,15 @@ fn split_at_mut(values: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
     }
 }
 
+static HELLO_WORLD: &str = "Hello, world!";
+static mut COUNTER: u32 = 0;
+
+fn add_to_count(inc: u32) {
+    unsafe {
+        COUNTER += inc;
+    }
+}
+
 fn main() {
     let mut num = 5;
 
@@ -41,5 +50,13 @@ fn main() {
         println!("r2 is: {}", *r2);
         dangerous();
         println!("Absolute value of -3 according to C: {}", abs(-3));
+    }
+
+    println!("value is: {HELLO_WORLD}");
+
+    add_to_count(3);
+
+    unsafe {
+        println!("COUNTER: {COUNTER}");
     }
 }
