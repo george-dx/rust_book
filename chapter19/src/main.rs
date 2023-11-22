@@ -139,6 +139,15 @@ impl fmt::Display for Wrapper {
         write!(f, "[{}]", self.0.join(", "))
     }
 }
+
+type Kilometers = i32;
+
+type Thunk = Box<dyn Fn() + Send + 'static>;
+
+fn takes_long_type(f: Thunk) {
+
+}
+
 fn main() {
     let mut num = 5;
 
@@ -185,4 +194,11 @@ fn main() {
 
     let w = Wrapper(vec![String::from("hello"), String::from("world")]);
     println!("w = {w}");
+
+    let x: i32 = 5;
+    let y: Kilometers = 5;
+
+    println!("x + y = {}", x + y);
+
+    let f: Thunk = Box::new(|| println!("hi"));
 }
