@@ -148,6 +148,10 @@ fn takes_long_type(f: Thunk) {
 
 }
 
+fn generic<T: ?Sized>(t: &T) {
+    
+}
+
 fn main() {
     let mut num = 5;
 
