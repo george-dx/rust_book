@@ -144,12 +144,20 @@ type Kilometers = i32;
 
 type Thunk = Box<dyn Fn() + Send + 'static>;
 
-fn takes_long_type(f: Thunk) {
+fn takes_long_type(f: Thunk) {}
 
+fn generic<T: ?Sized>(t: &T) {}
+
+fn add_one(x: i32) -> i32 {
+    x + 1
 }
 
-fn generic<T: ?Sized>(t: &T) {
-    
+fn do_twice(f: fn(i32) -> i32, arg: i32) -> i32 {
+    f(arg) + f(arg)
+}
+
+fn return_closure() -> Box<dyn Fn(i32) -> i32> {
+    Box::new(|x| x + 1)
 }
 
 fn main() {
@@ -205,4 +213,8 @@ fn main() {
     println!("x + y = {}", x + y);
 
     let f: Thunk = Box::new(|| println!("hi"));
+
+    let answer = do_twice(add_one, 5);
+
+    println!("The answer is: {answer}");
 }
