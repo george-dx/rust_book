@@ -1,5 +1,7 @@
 use std::ops::Add;
 use std::{fmt, slice};
+mod hello_macro;
+use hello_macro::hello_macro::HelloMacro;
 
 unsafe fn dangerous() {}
 
@@ -160,6 +162,14 @@ fn return_closure() -> Box<dyn Fn(i32) -> i32> {
     Box::new(|x| x + 1)
 }
 
+struct Pancakes;
+
+impl HelloMacro for Pancakes {
+    fn hello_macro() {
+        println!("Hello, Macro! My name is Pancakes!");
+    }
+}
+//TODO: update the example with macros
 fn main() {
     let mut num = 5;
 
@@ -217,4 +227,6 @@ fn main() {
     let answer = do_twice(add_one, 5);
 
     println!("The answer is: {answer}");
+
+    Pancakes::hello_macro();
 }
